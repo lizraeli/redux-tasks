@@ -4,7 +4,10 @@ import EditableTask from './EditableTask'
 import '../index.css'
 
 
-const TaskList = ({ tasks, editTask, deleteTask, saveEdit }) => (
+const TaskList = ({ tasks, editTask, deleteTask, saveEdit }) => {
+
+  console.log('tasklist tasks: ', tasks)
+  return(
   <ul>
     {
     tasks.map(task =>
@@ -29,18 +32,20 @@ const TaskList = ({ tasks, editTask, deleteTask, saveEdit }) => (
    }
   </ul>
 )
+}
 
 TaskList.propTypes = {
   tasks: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
     text: PropTypes.string.isRequired,
-    editable: PropTypes.bool.isRequired
+    editable: PropTypes.bool
   }).isRequired).isRequired,
-  title: PropTypes.string.isRequired,
   editTask: PropTypes.func.isRequired,
   deleteTask: PropTypes.func.isRequired,
   saveEdit: PropTypes.func.isRequired
 }
+
+
 
 export default TaskList

@@ -1,8 +1,7 @@
-let nextTaskId = 0
-export const addTask = (title, text) => {
+export const addTask = (id, title, text) => {
   return {
     type: 'ADD_TASK',
-    id: nextTaskId++,
+    id,
     title,
     text
   }
@@ -28,5 +27,13 @@ export const saveTask = (id, title, text) => {
     id,
     title,
     text
+  }
+}
+
+export const setTasks = (tasks) => {
+  return {
+    type: 'SET_TASKS',
+    tasks: tasks,
+    nextTaskId: tasks.length
   }
 }

@@ -2,6 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {addTask} from '../actions/index'
 import style from '../style.js'
+import {postTaskToServer} from '../fakeServer/index'
 
 let AddTask = ({dispatch}) => {
     let titleInput;
@@ -9,14 +10,21 @@ let AddTask = ({dispatch}) => {
 
     function submit(e) {
         e.preventDefault()
+        console.log(textInput.value)
         // Check if input is not empty or just spaces
         if (!titleInput.value.trim()) {
             return
         }
-        dispatch(addTask(titleInput.value, textInput.value))
-
-        titleInput.value = ''
-        textInput.value = ''
+        let text = textInput.value || ""
+        postTaskToServer({
+          title: titleInput.value,
+          text: text
+        })
+        .then(id => {
+          dispatch(addTask(id, titleInput.value, text))
+          titleInput.value = ''
+          textInput.value = ''
+        })
     }
 
     return (
